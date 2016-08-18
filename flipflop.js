@@ -31,7 +31,6 @@
  */
 
 function flipflop(area) {
-
     // The area over which to listen for a click
     area = area || document.body;
 
@@ -46,8 +45,7 @@ function flipflop(area) {
         }
 
         // Find edge
-        let edge,
-            el = done;
+        let edge, el = done;
         while ((el = el.parentNode) && el.parentNode) {
             if (el.classList.contains('edge')) {
                 edge = el;
@@ -65,17 +63,21 @@ function flipflop(area) {
             edge.classList.add('over');
         } else {
             // flop
-            let dones = edge.getElementsByClassName('flip');
-            Array.prototype.forEach.call(dones, function (el) {
-                el.style.display = '';
-            });
+            Array.prototype.forEach.call(
+                edge.getElementsByClassName('flip'),
+                function (el) {
+                    el.style.display = '';
+                }
+            );
             // Edges can be nested.
-            // Revert all within this edge.
-            let innerEdges = edge.getElementsByClassName('edge');
-            Array.prototype.forEach.call(innerEdges, function (el) {
+            // Revert all within this one.
+            let edges = Array.prototype.slice.call(
+                edge.getElementsByClassName('edge')
+            );
+            edges.push(edge);
+            edges.forEach(function (el) {
                 el.classList.remove('over');
             });
-            edge.classList.remove('over');
         }
     });
 }
