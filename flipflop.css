@@ -1,0 +1,7 @@
+.edge.over .side1,
+.edge:not(.over) .side2,
+.edge:not(.over) .flop,
+.flip.done
+{
+    display: none;
+}
