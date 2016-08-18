@@ -1,5 +1,5 @@
 /*
- * flipflop JavaScript library v0.1
+ * flipflop.js JavaScript library v0.1
  *
  * https://github.com/combatentropy/flipflop/
  *
