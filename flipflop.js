@@ -38,7 +38,6 @@ function flipflop(area) {
     area.addEventListener('click', function (ev) {
 
         let done = ev.target,
-            edge,
             flip = done.classList.contains('flip'),
             flop = done.classList.contains('flop');
 
@@ -47,7 +46,8 @@ function flipflop(area) {
         }
 
         // Find edge
-        let el = done;
+        let edge,
+            el = done;
         while ((el = el.parentNode) && el.parentNode) {
             if (el.classList.contains('edge')) {
                 edge = el;
@@ -69,6 +69,8 @@ function flipflop(area) {
             Array.prototype.forEach.call(dones, function (el) {
                 el.classList.remove('done');
             });
+            // Edges can be nested.
+            // A flop will revert all within its edge.
             let inner_edges = edge.querySelectorAll('.edge.over');
             Array.prototype.forEach.call(inner_edges, function (el) {
                 el.classList.remove('over');
