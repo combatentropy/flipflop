@@ -1,6 +1,6 @@
 /*
  * flipflop.js JavaScript library v0.1
- *
+ * 18 August 2016
  * https://github.com/combatentropy/flipflop/
  *
  *
