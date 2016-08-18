@@ -31,7 +31,7 @@
  */
 
 function flipflop(area) {
-    
+
     // The area over which to listen for a click
     area = area || document.body;
 
@@ -61,17 +61,17 @@ function flipflop(area) {
         ev.preventDefault();
 
         if (flip) {
-            done.classList.add('done');
+            done.style.display = 'none';
             edge.classList.add('over');
         } else {
             // flop
-            let dones = edge.querySelectorAll('.flip.done');
+            let dones = edge.getElementsByClassName('flip');
             Array.prototype.forEach.call(dones, function (el) {
-                el.classList.remove('done');
+                el.style.display = '';
             });
             // Edges can be nested.
-            // A flop will revert all within its edge.
-            let innerEdges = edge.querySelectorAll('.edge.over');
+            // Revert all within this edge.
+            let innerEdges = edge.getElementsByClassName('edge');
             Array.prototype.forEach.call(innerEdges, function (el) {
                 el.classList.remove('over');
             });
