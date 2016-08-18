@@ -71,8 +71,8 @@ function flipflop(area) {
             });
             // Edges can be nested.
             // A flop will revert all within its edge.
-            let inner_edges = edge.querySelectorAll('.edge.over');
-            Array.prototype.forEach.call(inner_edges, function (el) {
+            let innerEdges = edge.querySelectorAll('.edge.over');
+            Array.prototype.forEach.call(innerEdges, function (el) {
                 el.classList.remove('over');
             });
             edge.classList.remove('over');
