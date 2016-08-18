@@ -1,4 +1,4 @@
-# flipflop
+# flipflop.js
 
 Example:
 ```html
