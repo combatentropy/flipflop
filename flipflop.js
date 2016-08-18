@@ -30,7 +30,6 @@
  * For more information, please refer to <http://unlicense.org/>
  */
 
-
 function flipflop(area) {
     
     // The area over which to listen for a click
