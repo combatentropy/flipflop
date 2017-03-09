@@ -1,7 +1,7 @@
 /*
- * flipflop.js JavaScript library v0.1
- * 18 August 2016
- * https://github.com/combatentropy/flipflop/
+ * flipflop.js JavaScript library v0.2
+ * 8 March 2017
+ * https://github.com/combatentropy/flipflop.js
  *
  *
  * This is free and unencumbered software released into the public domain.
@@ -27,57 +27,48 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  * 
- * For more information, please refer to <http://unlicense.org/>
  */
 
-function flipflop(area) {
-    // The area over which to listen for a click
-    area = area || document.body;
+document.addEventListener('click', function (ev) {
 
-    area.addEventListener('click', function (ev) {
+    // Check set-up
+    let clicked = ev.target;
+    if (! (clicked.classList.contains('flipper') ||
+        clicked.classList.contains('flopper'))) { return; }
+    for (var box = clicked.parentNode;
+        box.parentNode && ! box.classList.contains('flipflop');
+        box = box.parentNode);
+    if (! box) { return; }
 
-        let done = ev.target,
-            flip = done.classList.contains('flip'),
-            flop = done.classList.contains('flop');
+    if ('A' === clicked.tagName) { ev.preventDefault(); }
 
-        if (! (flip || flop)) {
-            return;
+    // Determine command
+    let flipped;
+    if (clicked.classList.contains('flipper')) {
+        if ('INPUT' === clicked.tagName && 'checkbox' === clicked.type) {
+            flipped = clicked.checked;
+        } else {
+            flipped = true;
         }
+    } else if (clicked.classList.contains('flopper')) {
+        flipped = false;
+    }
 
-        // Find edge
-        let edge, el = done;
-        while ((el = el.parentNode) && el.parentNode) {
-            if (el.classList.contains('edge')) {
-                edge = el;
-                break;
+    // Change box's class
+    if (flipped) { box.classList.add('flipped'); }
+    else { box.classList.remove('flipped'); }
+
+    // Special actions if form
+    if ('FORM' === box.tagName) {
+        // Enable or disable fields
+        for (let i = 0; i < box.elements.length; i++) {
+            let el = box.elements[i];
+            if (el.classList.contains('flip-on')) {
+                el.disabled = ! flipped;
             }
         }
-        if (! edge) {
-            return;
-        }
+        // Reset if hiding
+        if (! flipped) { box.reset(); }
+    }
+});
 
-        ev.preventDefault();
-
-        if (flip) {
-            done.style.display = 'none';
-            edge.classList.add('over');
-        } else {
-            // flop
-            Array.prototype.forEach.call(
-                edge.getElementsByClassName('flip'),
-                function (el) {
-                    el.style.display = '';
-                }
-            );
-            // Edges can be nested.
-            // Revert all within this one.
-            let edges = Array.prototype.slice.call(
-                edge.getElementsByClassName('edge')
-            );
-            edges.push(edge);
-            edges.forEach(function (el) {
-                el.classList.remove('over');
-            });
-        }
-    });
-}

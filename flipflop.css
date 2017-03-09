@@ -1,6 +1,14 @@
-.edge.over .side1,
-.edge:not(.over) .side2,
-.edge:not(.over) .flop
-{
-    display: none;
-}
+.flipflop:not(.flipped) .flipside,
+.flipflop:not(.flipped) .flopper,
+.flipflop:not(.flipped) button,
+.flipflop:not(.flipped) input:not(.flipper),
+.flipflop:not(.flipped) select,
+.flipflop:not(.flipped) textarea,
+.flipflop.flipped .flopside,
+.flipflop.flipped a.flipper
+{ display: none }
+
+.flipflop:not(.flipped) .flipside-floppy,
+.flipflop.flipped .flopside-flippy
+{ visibility: hidden }
+
